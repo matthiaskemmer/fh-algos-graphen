@@ -177,9 +177,6 @@ if __name__ == "__main__":
     path = "data/UE03_data.txt"
     graph = Graph()
     graph.load_data(path)
-    #print(graph.data["Donauinsel"])  # Example station data
-    #print(graph.data["Alte Donau"])
-    #print(graph.data["Kaisermuehlen-VIC"])
-    #print(graph.data["Vorgartenstrasse"])
+    #print(graph.data["Westbahnhof"])  # Example station data
     #print(graph.data)
     graph.user_input()
