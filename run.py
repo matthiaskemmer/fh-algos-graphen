@@ -76,7 +76,7 @@ class Graph:
         print(f"Total distance: {distances[end]}")
         print(f"Total line changes: {line_changes[end]}")
     
-    def find_path1(self, start: str, end: str):
+    def find_path_heapq(self, start: str, end: str):
         print(f"Search path between '{start}' and '{end}'")
 
         startTime = time.time()  
@@ -170,13 +170,29 @@ class Graph:
 
         if start and end:
             self.find_path(start, end) #not using heapq
-            self.find_path1(start, end) # using heapq
+            self.find_path_heapq(start, end) # using heapq
 
+def use_user_input(graph):
+    graph.user_input()
+
+def auto_input(graph):
+    search_for = [
+        ("Heiligenstadt", "Heiligenstadt"),  # test same line (U4)
+        ("Heiligenstadt", "Huetteldorf"),  # test same line, but find shorter path (U4, U6, U4)
+        ("Ottakring", "Reumannplatz"),  # test changing lines (U3, U1)
+        ("Stammersdorf", "Praterstern"), # test longer route with 3 changes (30, U6, 2, 5)
+    ]
+    for start, end in search_for:
+        graph.find_path(start, end)
+        print()
+        graph.find_path_heapq(start, end)
+        print()
 
 if __name__ == "__main__":
     path = "data/UE03_data.txt"
     graph = Graph()
     graph.load_data(path)
-    #print(graph.data["Westbahnhof"])  # Example station data
-    #print(graph.data)
-    graph.user_input()
+    # print(graph.data["Westbahnhof"])  # Example station data
+    # print(graph.data)
+    auto_input(graph)
+    
