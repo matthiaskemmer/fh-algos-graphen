@@ -177,10 +177,10 @@ def use_user_input(graph):
 
 def auto_input(graph):
     search_for = [
-        ("Heiligenstadt", "Heiligenstadt"),  # test same line (U4)
-        ("Heiligenstadt", "Huetteldorf"),  # test same line, but find shorter path (U4, U6, U4)
+        ("Heiligenstadt", "Heiligenstadt"),  # test same station (U4)
         ("Ottakring", "Reumannplatz"),  # test changing lines (U3, U1)
-        ("Stammersdorf", "Praterstern"), # test longer route with 3 changes (30, U6, 2, 5)
+        ("Heiligenstadt", "Huetteldorf"),  # test same line, but find shorter path (U4, U6, U4)
+        ("Stammersdorf", "Praterstern"), # test a longer route with 3 changes (30, U6, 2, 5)
     ]
     for start, end in search_for:
         graph.find_path(start, end)
