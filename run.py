@@ -195,4 +195,5 @@ if __name__ == "__main__":
     # print(graph.data["Westbahnhof"])  # Example station data
     # print(graph.data)
     auto_input(graph)
+    #use_user_input(graph)
     
