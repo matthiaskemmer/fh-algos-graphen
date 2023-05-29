@@ -72,7 +72,7 @@ class Graph:
                     print(f"\n(Line change to {previous[path[i + 1]][1]})", end="")
             print()
 
-        print("Der Dijkstra Algorithmus hat {:.3f}ms gebraucht, um den Pfad zu finden".format(elapsedTime))
+        print("The Dijkstra Algorithm using heapq algorithm took {:.3f}ms to find the path".format(elapsedTime))
         print(f"Total distance: {distances[end]}")
         print(f"Total line changes: {line_changes[end]}")
     
@@ -86,14 +86,12 @@ class Graph:
         distances[start] = 0
         previous = {station: None for station in self.data.keys()}
         line_changes = {station: 0 for station in self.data.keys()}
-        visited = set()  # Empty set data structure
+        visited = set()  # Empty set
         start_line = None
 
-        queue = [(0, start)]  # Priority queue of (distance, station) tuples
-
+        queue = [(0, start)]  # priority queue of (distance, station) tuples
         while queue:
             current_distance, current_station = heapq.heappop(queue)
-
             if current_station == end:
                 break
 
@@ -103,17 +101,19 @@ class Graph:
             visited.add(current_station)
 
             for neighbor, cost, line_name in self.data[current_station]:
-                new_distance = current_distance + cost
-                line_change_cost = 0 if previous[current_station] is None or line_name == previous[current_station][1] else 1
-                new_distance += line_change_cost
+                if neighbor not in visited:
+                    new_distance = current_distance + cost
+                    line_change_cost = 0 if previous[current_station] is None or line_name == previous[current_station][1] else 1
+                    new_distance += line_change_cost
 
-                if new_distance < distances[neighbor]:
-                    distances[neighbor] = new_distance
-                    previous[neighbor] = (current_station, line_name)
-                    if start_line is None:
-                        start_line = line_name
-                    line_changes[neighbor] = line_changes[current_station] + line_change_cost
-                    heapq.heappush(queue, (new_distance, neighbor))
+                    if new_distance < distances[neighbor]:
+                        distances[neighbor] = new_distance
+                        previous[neighbor] = (current_station, line_name)
+                        if start_line is None:
+                            start_line = line_name
+                        line_changes[neighbor] = line_changes[current_station] + line_change_cost
+                        heapq.heappush(queue, (new_distance, neighbor))
+                        #print(queue)
 
         # Shortest path
         path = []
@@ -121,7 +121,7 @@ class Graph:
         while current:
             path.append(current)
             current = previous[current][0] if current != start else None
-        path = path[::-1]  # Reverse path
+        path = path[::-1]  # reverse path
 
         endTime = time.time()  
         elapsedTime = (endTime - startTime) * 1000  # time in milliseconds
@@ -136,7 +136,7 @@ class Graph:
                     print(f"\n(Line change to {previous[path[i + 1]][1]})", end="")
             print()
 
-        print("The Dijkstra using heapq algorithm took {:.3f}ms to find the path".format(elapsedTime))
+        print("The Dijkstra Algorithm using heapq algorithm took {:.3f}ms to find the path".format(elapsedTime))
         print(f"Total distance: {distances[end]}")
         print(f"Total line changes: {line_changes[end]}")
 
