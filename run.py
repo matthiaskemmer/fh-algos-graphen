@@ -47,9 +47,11 @@ class Graph:
                 if new_distance < distances[neighbor]:
                     distances[neighbor] = new_distance
                     previous[neighbor] = (min_station, line_name)
-                    if start_line is None:
-                        start_line = line_name
+                    temp = line_name
                     line_changes[neighbor] = line_changes[min_station] + line_change_cost
+            
+            if start_line is None:
+                start_line = temp
 
         # shortest path
         path = []
@@ -109,11 +111,12 @@ class Graph:
                     if new_distance < distances[neighbor]:
                         distances[neighbor] = new_distance
                         previous[neighbor] = (current_station, line_name)
-                        if start_line is None:
-                            start_line = line_name
+                        temp = line_name
                         line_changes[neighbor] = line_changes[current_station] + line_change_cost
                         heapq.heappush(queue, (new_distance, neighbor))
-                        #print(queue)
+                        # print(queue)
+            if start_line is None:
+                start_line = temp                  
 
         # Shortest path
         path = []
@@ -192,8 +195,8 @@ if __name__ == "__main__":
     path = "data/UE03_data.txt"
     graph = Graph()
     graph.load_data(path)
-    # print(graph.data["Westbahnhof"])  # Example station data
+    print(graph.data["Kagran"])  # Example station data
+    print(graph.data["Prandaugasse"])
     # print(graph.data)
-    auto_input(graph)
-    #use_user_input(graph)
-    
+    #auto_input(graph)
+    graph.user_input()
